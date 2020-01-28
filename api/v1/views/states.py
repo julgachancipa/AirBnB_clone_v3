@@ -4,7 +4,7 @@ from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
 
-@app_views.route('/states', strict_slashes=False)
+@app_views.route('/states', methods=['GET'])
 def all_states():
     """return all states"""
     states_dict = storage.all('State')
