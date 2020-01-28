@@ -5,16 +5,16 @@ from flask import jsonify
 from models import storage
 
 
-@app_views.route('/status', strict_slashes=False)
+@app_views.route('/status', methods=['GET'])
 def api_status():
     return jsonify({'status': 'OK'})
 
 
-@app_views.route('/stats', strict_slashes=False)
+@app_views.route('/stats', methods=['GET'])
 def some_stats():
     return jsonify({'amenities': storage.count('Amenity'),
                    'cities': storage.count('City'),
                    'places': storage.count('Place'),
                    'reviews': storage.count('Review'),
                    'states': storage.count('State'),
-                   'users': staorage.count('User')})
+                   'users': storage.count('User')})
