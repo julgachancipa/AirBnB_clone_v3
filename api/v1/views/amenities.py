@@ -6,6 +6,17 @@ from models import storage
 from models.amenity import Amenity
 
 
+@app_views.route('/amenities', methods=['GET'], strict_slashes=False)
+def all_amenities():
+    """return all amenities"""
+    amenities_dict = storage.all('Amenity')
+    amenities_list = list(amenities_dict.values())
+    json_list = []
+    for a in amenities_list:
+        json_list.append(a.to_dict())
+    return jsonify(json_list)
+
+
 @app_views.route('/amenities/<amenity_id>', strict_slashes=False, methods=['GET'])
 def amenity_id(amenity_id):
     """find a city by id"""
@@ -20,7 +31,7 @@ def amenity_id(amenity_id):
 def del_amenity(amenity_id):
     """delete amenity id"""
     amenity = storage.get('Amenity', amenity_id)
-    if amenity is not None:
+    if amenity is None:
         abort(404)
     storage.delete(amenity)
     storage.save()
@@ -40,10 +51,10 @@ def create_amenity():
     return jsonify(nw_amenity.to_dict()), 201
 
 
-@app_views.route('/amenities/<amenity_id', methods=['PUT'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'], strict_slashes=False)
 def update_amenity(amenity_id):
     """update_task"""
-    amenity = storage.get('City', amenity_id)
+    amenity = storage.get('Amenity', amenity_id)
     if amenity is None:
         abort(404)
     if not request.json:
