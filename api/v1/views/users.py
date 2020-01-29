@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request, abort
 from models import storage
 from models.user import User
 
+
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def all_users():
     """return all users"""
@@ -46,7 +47,8 @@ def create_users():
         abort(400, 'Missing email')
     if not 'password' in request.get_json():
         abort(400, 'Missing password')
-    nw_user = User(email=request.json['email'], password=request.json['password'])
+    nw_user = User(email=request.json['email'],
+                   password=request.json['password'])
     storage.new(nw_user)
     storage.save()
     return jsonify(nw_user.to_dict()), 201
@@ -62,7 +64,7 @@ def update_users(user_id):
         abort(400, 'Not a JSON')
     data = request.get_json()
     for key in data:
-        if key not in ['id', 'email', 'created_at','updated_at']:
+        if key not in ['id', 'email', 'created_at', 'updated_at']:
             setattr(users, key, data[key])
     storage.save()
     return jsonify(users.to_dict()), 200

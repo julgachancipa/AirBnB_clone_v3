@@ -17,7 +17,8 @@ def all_amenities():
     return jsonify(json_list)
 
 
-@app_views.route('/amenities/<amenity_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/amenities/<amenity_id>', strict_slashes=False,
+                 methods=['GET'])
 def amenity_id(amenity_id):
     """find a city by id"""
     amenity = storage.get('Amenity', amenity_id)
@@ -27,7 +28,8 @@ def amenity_id(amenity_id):
         abort(404)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def del_amenity(amenity_id):
     """delete amenity id"""
     amenity = storage.get('Amenity', amenity_id)
@@ -51,7 +53,8 @@ def create_amenity():
     return jsonify(nw_amenity.to_dict()), 201
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_amenity(amenity_id):
     """update_task"""
     amenity = storage.get('Amenity', amenity_id)
@@ -61,7 +64,7 @@ def update_amenity(amenity_id):
         abort(400, 'Not a JSON')
     data = request.get_json()
     for key in data:
-        if key not in ['id','created_at','updated_at']:
+        if key not in ['id', 'created_at', 'updated_at']:
             setattr(amenity, key, data[key])
     storage.save()
     return jsonify(amenity.to_dict()), 200

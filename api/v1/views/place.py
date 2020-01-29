@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request, abort
 from models import storage
 from models.place import Place
 
+
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
                  strict_slashes=False)
 def show_places(city_id):
@@ -29,7 +30,8 @@ def place_id(place_id):
         abort(404)
 
 
-@app_views.route('/places/<place_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def del_place(place_id):
     """delete place id"""
     places = storage.get('Place', place_id)
@@ -40,7 +42,8 @@ def del_place(place_id):
     return jsonify({}), 200
 
 
-@app_views.route('/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places', methods=['POST'],
+                 strict_slashes=False)
 def create_place(city_id):
     """creates a new place"""
     if not request.get_json():
@@ -57,7 +60,8 @@ def create_place(city_id):
     if user is None:
         abort(404)
 
-    nw_place = Place(name=request.json['name'], user_id=request.json['user_id'],
+    nw_place = Place(name=request.json['name'],
+                     user_id=request.json['user_id'],
                      city_id=city_id)
     storage.new(nw_place)
     storage.save()

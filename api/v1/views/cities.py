@@ -41,7 +41,8 @@ def del_city(city_id):
     return jsonify({}), 200
 
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
+@app_views.route('/states/<state_id>/cities', methods=['POST'],
+                 strict_slashes=False)
 def create_city(state_id):
     """creates a new state"""
     if not request.get_json():
@@ -67,7 +68,7 @@ def update_city(city_id):
         abort(400, 'Not a JSON')
     data = request.get_json()
     for key in data:
-        if key not in ['id','created_at','updated_at']:
+        if key not in ['id', 'created_at', 'updated_at']:
             setattr(city, key, data[key])
     storage.save()
     return jsonify(city.to_dict()), 200
