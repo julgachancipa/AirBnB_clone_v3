@@ -6,7 +6,7 @@ from models import storage
 from models.place import Place
 
 @app_views.route('/api/v1/cities/<city_id>/places', methods=['GET'], strict_slashes=False)
-def create_place(city_id):
+def show_places(city_id):
     """creates a new place"""
     city = storage.get('City', city_id)
     if city is None:
