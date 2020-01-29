@@ -16,6 +16,7 @@ def all_states():
         json_list.append(s.to_dict())
     return jsonify(json_list)
 
+
 @app_views.route('/states/<state_id>')
 def state_id(state_id):
     """find a state by id"""
@@ -24,6 +25,7 @@ def state_id(state_id):
         return jsonify(state.to_dict())
     else:
         abort(404)
+
 
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def del_state(state_id):
@@ -49,3 +51,16 @@ def create_state():
     storage.new(nw_state)
     storage.save()
     return jsonify(nw_state.to_dict()), 201
+
+
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+def update_state():
+    """update_task"""
+    state = storage.get('State', state_id)
+    if state == None:
+        abort(404)
+    if not request.json:
+        abort(400, 'Not a JSON')
+    nw_state = State(name=request.json())
+    
+    return jsonify(nw_state), 200
