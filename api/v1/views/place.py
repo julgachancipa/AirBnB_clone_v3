@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Amenities api"""
+"""
+Amenities api
+"""
 from api.v1.views import app_views
 from flask import Flask, jsonify, request, abort
 from models import storage
@@ -9,7 +11,9 @@ from models.place import Place
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
                  strict_slashes=False)
 def show_places(city_id):
-    """show places in a city"""
+    """
+    show places in a city
+    """
     city = storage.get('City', city_id)
     if city is None:
         abort(404)
@@ -22,7 +26,9 @@ def show_places(city_id):
 
 @app_views.route('/places/<place_id>', strict_slashes=False, methods=['GET'])
 def place_id(place_id):
-    """find a user by id"""
+    """
+    find a user by id
+    """
     places = storage.get('Place', place_id)
     if places is not None:
         return jsonify(places.to_dict())
@@ -33,7 +39,9 @@ def place_id(place_id):
 @app_views.route('/places/<place_id>', methods=['DELETE'],
                  strict_slashes=False)
 def del_place(place_id):
-    """delete place id"""
+    """
+    delete place id
+    """
     places = storage.get('Place', place_id)
     if places is None:
         abort(404)
@@ -45,7 +53,9 @@ def del_place(place_id):
 @app_views.route('/cities/<city_id>/places', methods=['POST'],
                  strict_slashes=False)
 def create_place(city_id):
-    """creates a new place"""
+    """
+    creates a new place
+    """
     if not request.get_json():
         abort(400, 'Not a JSON')
     if not 'user_id' in request.get_json():
@@ -70,7 +80,9 @@ def create_place(city_id):
 
 @app_views.route('/places/<place_id>', methods=['PUT'], strict_slashes=False)
 def update_places(place_id):
-    """update_task"""
+    """
+    update_task
+    """
     places = storage.get('Place', place_id)
     if places is None:
         abort(404)

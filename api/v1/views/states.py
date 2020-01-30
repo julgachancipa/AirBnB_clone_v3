@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""States api"""
+"""
+States api
+"""
 from api.v1.views import app_views
 from flask import Flask, jsonify, request, abort
 from models import storage
@@ -8,7 +10,9 @@ from models.state import State
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def all_states():
-    """return all states"""
+    """
+    return all states
+    """
     states_dict = storage.all('State')
     states_list = list(states_dict.values())
     json_list = []
@@ -19,7 +23,9 @@ def all_states():
 
 @app_views.route('/states/<state_id>', strict_slashes=False)
 def state_id(state_id):
-    """find a state by id"""
+    """
+    find a state by id
+    """
     state = storage.get('State', state_id)
     if state is not None:
         return jsonify(state.to_dict())
@@ -30,7 +36,9 @@ def state_id(state_id):
 @app_views.route('/states/<state_id>', methods=['DELETE'],
                  strict_slashes=False)
 def del_state(state_id):
-    """delete state id"""
+    """
+    delete state id
+    """
     state = storage.get('State', state_id)
     if state is None:
         abort(404)
@@ -41,7 +49,9 @@ def del_state(state_id):
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_state():
-    """creates a new state"""
+    """
+    creates a new state
+    """
     if not request.get_json():
         abort(400, 'Not a JSON')
     if not 'name' in request.get_json():
@@ -54,7 +64,9 @@ def create_state():
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
-    """update_task"""
+    """
+    update_task
+    """
     state = storage.get('State', state_id)
     if state is None:
         abort(404)

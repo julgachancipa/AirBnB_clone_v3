@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Amenities api"""
+"""
+Amenities api
+"""
 from api.v1.views import app_views
 from flask import Flask, jsonify, request, abort
 from models import storage
@@ -9,7 +11,9 @@ from models.review import Review
 @app_views.route('/places/<place_id>/reviews', methods=['GET'],
                  strict_slashes=False)
 def show_r_places(place_id):
-    """creates a new place"""
+    """
+    creates a new place
+    """
     place = storage.get('Place', place_id)
     if place is None:
         abort(404)
@@ -22,7 +26,9 @@ def show_r_places(place_id):
 
 @app_views.route('/reviews/<review_id>', strict_slashes=False, methods=['GET'])
 def r_place_id(review_id):
-    """find a review by id"""
+    """
+    find a review by id
+    """
     review = storage.get('Review', review_id)
     if review is not None:
         return jsonify(review.to_dict())
@@ -33,7 +39,9 @@ def r_place_id(review_id):
 @app_views.route('/reviews/<review_id>', methods=['DELETE'],
                  strict_slashes=False)
 def del_r_place(review_id):
-    """delete review id"""
+    """
+    delete review id
+    """
     review = storage.get('Review', review_id)
     if review is None:
         abort(404)
@@ -45,7 +53,9 @@ def del_r_place(review_id):
 @app_views.route('/places/<place_id>/reviews', methods=['POST'],
                  strict_slashes=False)
 def create_r_place(place_id):
-    """creates a new r_place"""
+    """
+    creates a new r_place
+    """
     if not request.get_json():
         abort(400, 'Not a JSON')
     if not 'user_id' in request.get_json():
@@ -68,7 +78,9 @@ def create_r_place(place_id):
 
 @app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
 def update_r_places(review_id):
-    """update_task"""
+    """
+    update_task
+    """
     review = storage.get('Review', review_id)
     if review is None:
         abort(404)

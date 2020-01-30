@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""List of states"""
+"""
+List of states
+"""
 from api.v1.views import app_views
 from flask import jsonify
 from models import storage
@@ -7,11 +9,17 @@ from models import storage
 
 @app_views.route('/status')
 def api_status():
+    """
+    api_status
+    """
     return jsonify(status='OK')
 
 
 @app_views.route('/stats')
 def some_stats():
+    """
+    some_stats
+    """
     return jsonify({'amenities': storage.count('Amenity'),
                     'cities': storage.count('City'),
                     'places': storage.count('Place'),
