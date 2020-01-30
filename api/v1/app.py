@@ -17,7 +17,7 @@ def not_found_error(error):
     """
     oh my cat
     """
-    return jsonify(error="Not Found"), 404
+    return jsonify(error="Not found"), 404
 
 
 @app.teardown_appcontext
