@@ -17,9 +17,11 @@ def close_s(x=None):
 
 @app.errorhandler(404)
 def not_found_error(error):
-    """oh my cat"""
-    error = jsonify({"error": "Not found"})
-    return error, 404
+    """
+    oh my cat
+    """
+    return jsonify(error="Not Found"), 404
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True)
