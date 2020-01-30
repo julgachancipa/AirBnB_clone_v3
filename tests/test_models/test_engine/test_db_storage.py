@@ -91,7 +91,7 @@ class TestFileStorage(unittest.TestCase):
     def test_get(self):
         """tests get method"""
         newState = State(name="Texas")
-        models.storage.new(newStatecall_state)
+        models.storage.new(newState)
         models.storage.save()
         obj = models.storage.get('State', newStatecall_state.id)
         self.assertEqual(newStatecall_state.id, obj.id)
