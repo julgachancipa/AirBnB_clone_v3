@@ -42,7 +42,7 @@ def del_city(city_id):
     delete city id
     """
     city = storage.get('City', city_id)
-    if city is not None:
+    if city is None:
         abort(404)
     storage.delete(city)
     storage.save()
@@ -76,7 +76,7 @@ def update_city(city_id):
     city = storage.get('City', city_id)
     if city is None:
         abort(404)
-    if not request.json:
+    if not request.get_json():
         abort(400, 'Not a JSON')
     data = request.get_json()
     for key in data:
