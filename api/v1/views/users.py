@@ -53,9 +53,9 @@ def create_users():
     """
     if not request.get_json():
         abort(400, 'Not a JSON')
-    if not 'email' in request.get_json():
+    if 'email' not in request.get_json():
         abort(400, 'Missing email')
-    if not 'password' in request.get_json():
+    if 'password' not in request.get_json():
         abort(400, 'Missing password')
     nw_user = User(email=request.json['email'],
                    password=request.json['password'])

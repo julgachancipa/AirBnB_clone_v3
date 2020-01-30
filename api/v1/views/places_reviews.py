@@ -58,9 +58,9 @@ def create_r_place(place_id):
     """
     if not request.get_json():
         abort(400, 'Not a JSON')
-    if not 'user_id' in request.get_json():
+    if 'user_id' not in request.get_json():
         abort(400, 'Missing user_id')
-    if not 'text' in request.get_json():
+    if 'text' not in request.get_json():
         abort(400, 'Missing text')
     user = storage.get('User', request.json['user_id'])
     if user is None:
