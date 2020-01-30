@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Amenities api
+Places api
 """
 from api.v1.views import app_views
 from flask import Flask, jsonify, request, abort
